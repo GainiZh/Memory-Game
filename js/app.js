@@ -10,7 +10,9 @@ const cards = ['fa-diamond', 'fa-diamond',
               'fa-bicycle', 'fa-bicycle',
               'fa-bomb', 'fa-bomb'];
 
+//Declare variables
 const cardsContainer = document.querySelector('.deck');
+let toggledCards = [];
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -18,7 +20,7 @@ const cardsContainer = document.querySelector('.deck');
  *   - add each card's HTML to the page
  */
 
-/*Generate HTML cards*/
+//Generate HTML cards
 for (card of cards) {
   const unorderedList = document.querySelector('.deck');
   //create list element
@@ -29,13 +31,14 @@ for (card of cards) {
   const iElement = document.createElement('i');
   //add classes for i element
   iElement.classList.toggle('fa');
-  iElement.classList.toggle('card');
+  iElement.classList.toggle(card);
   //add i element inside li element
   newList.appendChild(iElement);
   //add li element inside ul element
   unorderedList.appendChild(newList);
 }
 
+//Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -50,8 +53,44 @@ function shuffle(array) {
     return array;
 }
 
-/* Click Event Listener*/
+//Add click event listener to the cards
+cardsContainer.addEventListener('click', function(event){
+  const clickedCard = event.target;
+  //check if class contains card class; enable only two cards to click; check if an array already has the card
+  if(clickedCard.classList.contains('card') && toggledCards.length < 2 && !toggledCards.includes(clickedCard)) {
+    //call toggleCard function
+    toggleCard(clickedCard);
+    //call a add function to push clickedCard into the toggledCards array to store the cards in the array
+    addToggleCard(clickedCard);
+    //if two cards are clicked, check if they match
+    if (toggledCards.length === 2) {
+    //call a match function to check if cards match
+      matchedCards();
+    }
+  }
+});
 
+//Toggle cards
+function toggleCard(clickedCard) {
+  clickedCard.classList.toggle('show');
+  clickedCard.classList.toggle('open');
+}
+//function to push clickedCard into the toggleCards
+function addToggleCard(clickedCard) {
+  toggledCards.push(clickedCard);
+}
+
+//function to check if the cards match
+function matchedCards() {
+  //check if class names match
+  if(toggledCards[0].firstChild.className ===        toggledCards[1].firstChild.className) {
+    console.log('match');
+  } else {
+    console.log('not a match');
+  }
+
+
+}
 
 
 
