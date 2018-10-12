@@ -12,7 +12,16 @@ const cards = ['fa-diamond', 'fa-diamond',
 
 //Declare variables
 const cardsContainer = document.querySelector('.deck');
-let toggledCards = [];
+let openedCards = [];
+let matchedCards = [];
+let moves = 0;
+let counter = document.querySelector('.moves');
+const totalMatches = 8;
+let seconds = 0;
+let minutes = 0;
+let timeInterval;
+let time = document.querySelector('.clock');
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -52,45 +61,94 @@ function shuffle(array) {
 
     return array;
 }
-
 //Add click event listener to the cards
 cardsContainer.addEventListener('click', function(event){
   const clickedCard = event.target;
-  //check if class contains card class; enable only two cards to click; check if an array already has the card
-  if(clickedCard.classList.contains('card') && toggledCards.length < 2 && !toggledCards.includes(clickedCard)) {
-    //call toggleCard function
-    toggleCard(clickedCard);
-    //call a add function to push clickedCard into the toggledCards array to store the cards in the array
-    addToggleCard(clickedCard);
+  if(clockNotStarted) {
+    clockNotStarted = false;
+    startClock();
+  }
+  //check if class contains card class; enable only two cards to click; check if an array already has a clicked card
+  if(clickedCard.classList.contains('card') && openedCards.length < 2 && !openedCards.includes(clickedCard)) {
+    //call flipOverCard function
+    flipOverCard(clickedCard);
+    //call a function to push clickedCard into the openedCards array to store the cards in the array
+    addToggledCard(clickedCard);
     //if two cards are clicked, check if they match
-    if (toggledCards.length === 2) {
+    if (openedCards.length === 2) {
     //call a match function to check if cards match
-      matchedCards();
-    }
+      checkMatch();
+    //call a function to add moves after two cards are toggled
+  } else {
+    resetCards();
+  }
   }
 });
 
-//Toggle cards
-function toggleCard(clickedCard) {
-  clickedCard.classList.toggle('show');
-  clickedCard.classList.toggle('open');
-}
-//function to push clickedCard into the toggleCards
-function addToggleCard(clickedCard) {
-  toggledCards.push(clickedCard);
-}
+function startClock() {
+  timeInterval = setInterval(function() {
+    seconds = parseInt(seconds, 10) + 1;
+    minutes = parseInt(minutes, 10);
+    if(seconds >= 60) {
+      minutes += 1;
+      seconds = 0;
+    }
+  seconds = seconds < 10 ? '0' + seconds : seconds;
+  minutes = minutes < 10 ? '0' + minutes : minutes;
 
-//function to check if the cards match
-function matchedCards() {
-  //check if class names match
-  if(toggledCards[0].firstChild.className ===        toggledCards[1].firstChild.className) {
-    console.log('match');
-  } else {
-    console.log('not a match');
+  time.innerHTML = minutes + ':' + seconds;
+  lastTime.textContent = time.textContent;
+  }, 1000);
   }
 
 
+
+//Open cards
+function flipOverCard(clickedCard) {
+  clickedCard.classList.toggle('show');
+  clickedCard.classList.toggle('open');
 }
+//function to push clickedCard into the openedCards
+function addToggledCard(clickedCard) {
+  openedCards.push(clickedCard);
+}
+
+//function to check if the cards match
+function checkMatch() {
+  //check if class names match
+  if(
+    openedCards[0].firstChild.className ===        openedCards[1].firstChild.className) {
+    //store matched cards in the variable
+    matchedCards = [];
+    //call a function to register and keep in track all matched cards
+    addMatchedCards();
+  }
+
+function addMatchedCards() {
+  matchedCards++;
+  for (let matchedCard of matchedCards) {
+    //if 8 matches achieved, let the user know, end the time & the game
+    if (matchedCards === totalMatches) {
+      //end time, end game and add pop up with congrats and game results - in progess
+      endGame();
+      //otherwise flip over the cards in a second
+    }
+}
+}
+
+function resetCards() {
+  setTimeout(() => {
+    for(let openedCard of openedCards) {
+      openedCards.classList.toggle('open');
+      openedCards.classList.toggle('show');
+      }
+      openedCards = [];
+    }, 1000);
+    }
+
+ function endGame() {
+   clearInterval(timeInterval);
+ }
 
 
 
