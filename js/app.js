@@ -13,7 +13,6 @@ const cards = ['fa-diamond', 'fa-diamond',
 //Declare variables
 const cardsContainer = document.querySelector('.deck');
 let openedCards = [];
-let matchedCards = [];
 let moves = 0;
 let counter = document.querySelector('.moves');
 const totalMatches = 8;
@@ -61,29 +60,23 @@ function shuffle(array) {
 
     return array;
 }
-//Add click event listener to the cards
+//Add a click event listener to the cards
 cardsContainer.addEventListener('click', function(event){
   const clickedCard = event.target;
-  if(clockNotStarted) {
-    clockNotStarted = false;
-    startClock();
-  }
   //check if class contains card class; enable only two cards to click; check if an array already has a clicked card
   if(clickedCard.classList.contains('card') && openedCards.length < 2 && !openedCards.includes(clickedCard)) {
-    //call flipOverCard function
+    //display a card's symbol
     flipOverCard(clickedCard);
-    //call a function to push clickedCard into the openedCards array to store the cards in the array
-    addToggledCard(clickedCard);
+    //add clickedCard to openedCards
+    addToOpenCards(clickedCard);
     //if two cards are clicked, check if they match
-    if (openedCards.length === 2) {
-    //call a match function to check if cards match
-      checkMatch();
-    //call a function to add moves after two cards are toggled
-  } else {
-    resetCards();
-  }
-  }
-});
+      if (openedCards.length === 2) {
+      //call a match function to check if cards match
+        checkMatch();
+      //call a function to add moves after two cards are toggled
+    }
+    }
+  });
 
 function startClock() {
   timeInterval = setInterval(function() {
@@ -103,52 +96,35 @@ function startClock() {
 
 
 
-//Open cards
+//open cards
 function flipOverCard(clickedCard) {
   clickedCard.classList.toggle('show');
   clickedCard.classList.toggle('open');
 }
 //function to push clickedCard into the openedCards
-function addToggledCard(clickedCard) {
+function addToOpenCards(clickedCard) {
   openedCards.push(clickedCard);
 }
 
 //function to check if the cards match
-function checkMatch() {
-  //check if class names match
-  if(
-    openedCards[0].firstChild.className ===        openedCards[1].firstChild.className) {
-    //store matched cards in the variable
-    matchedCards = [];
-    //call a function to register and keep in track all matched cards
-    addMatchedCards();
-  }
-
-function addMatchedCards() {
-  matchedCards++;
-  for (let matchedCard of matchedCards) {
-    //if 8 matches achieved, let the user know, end the time & the game
-    if (matchedCards === totalMatches) {
-      //end time, end game and add pop up with congrats and game results - in progess
-      endGame();
-      //otherwise flip over the cards in a second
-    }
-}
-}
-
-function resetCards() {
-  setTimeout(() => {
-    for(let openedCard of openedCards) {
-      openedCards.classList.toggle('open');
-      openedCards.classList.toggle('show');
-      }
+function checkMatch(clickedCard) {
+  if (
+    openedCards[0].firstChild.className === openedCards[1].firstChild.className) {
+      openedCards[0].classList.toggle('match');
+      openedCards[1].classList.toggle('match');
       openedCards = [];
-    }, 1000);
+    } else {
+      openedCards = [];
     }
+}
+  //check if class names match
 
- function endGame() {
-   clearInterval(timeInterval);
- }
+    //call a function to register and keep in track all matched cards
+
+
+
+
+
 
 
 
