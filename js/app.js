@@ -15,7 +15,8 @@ const cardsContainer = document.querySelector('.deck');
 let openedCards = [];
 let moves = 0;
 let counter = document.querySelector('.moves');
-const totalMatches = 8;
+let totalMatches = [];
+const allMatches = 8;
 let seconds = 0;
 let minutes = 0;
 let timeInterval;
@@ -113,10 +114,17 @@ function checkMatch(clickedCard) {
       openedCards[0].classList.toggle('match');
       openedCards[1].classList.toggle('match');
       openedCards = [];
+      totalMatches++;
     } else {
-      openedCards = [];
+      setTimeout(function() {
+        flipOverCard(openedCards[0]);
+        flipOverCard(openedCards[1]);
+        openedCards = [];
+      }, 1000);
     }
 }
+
+
   //check if class names match
 
     //call a function to register and keep in track all matched cards
