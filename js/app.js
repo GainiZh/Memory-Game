@@ -74,7 +74,7 @@ cardsContainer.addEventListener('click', function(event){
       if (openedCards.length === 2) {
       //call a match function to check if cards match
         checkMatch();
-      //call a function to add moves after two cards are toggled
+
     }
     }
   });
@@ -115,6 +115,11 @@ function checkMatch(clickedCard) {
       openedCards[1].classList.toggle('match');
       openedCards = [];
       totalMatches++;
+      //call a function to add moves after two cards are toggled
+      countMoves();
+      if(totalMatches === allMatches) {
+        endGame();
+      }
     } else {
       setTimeout(function() {
         flipOverCard(openedCards[0]);
@@ -124,6 +129,15 @@ function checkMatch(clickedCard) {
     }
 }
 
+//add moves after flipping over two cards
+function countMoves() {
+  moves++;
+  counter.innerHTML = moves;
+}
+
+function endGame() {
+  console.log('end game');
+}
 
   //check if class names match
 
