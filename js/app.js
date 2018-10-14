@@ -1,6 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
+ //Declare variables
 const cards = ['fa-diamond', 'fa-diamond',
               'fa-paper-plane-o', 'fa-paper-plane-o',
               'fa-anchor', 'fa-anchor',
@@ -10,17 +11,17 @@ const cards = ['fa-diamond', 'fa-diamond',
               'fa-bicycle', 'fa-bicycle',
               'fa-bomb', 'fa-bomb'];
 
-//Declare variables
+
 const cardsContainer = document.querySelector('.deck');
 let openedCards = [];
-let moves = 0;
+let moves = [];
 let counter = document.querySelector('.moves');
 let totalMatches = [];
 const allMatches = 8;
-let seconds = 0;
-let minutes = 0;
-let timeInterval;
-let time = document.querySelector('.clock');
+let countStars = [];
+let second = 0;
+let minute = 0;
+
 
 /*
  * Display the cards on the page
@@ -64,6 +65,8 @@ function shuffle(array) {
 //Add a click event listener to the cards
 cardsContainer.addEventListener('click', function(event){
   const clickedCard = event.target;
+  //initiate timer on click
+  startTimer();
   //check if class contains card class; enable only two cards to click; check if an array already has a clicked card
   if(clickedCard.classList.contains('card') && openedCards.length < 2 && !openedCards.includes(clickedCard)) {
     //display a card's symbol
@@ -75,24 +78,27 @@ cardsContainer.addEventListener('click', function(event){
       //call a match function to check if cards match
         checkMatch();
 
+
     }
     }
   });
 
-function startClock() {
-  timeInterval = setInterval(function() {
-    seconds = parseInt(seconds, 10) + 1;
-    minutes = parseInt(minutes, 10);
-    if(seconds >= 60) {
-      minutes += 1;
-      seconds = 0;
-    }
-  seconds = seconds < 10 ? '0' + seconds : seconds;
-  minutes = minutes < 10 ? '0' + minutes : minutes;
-
-  time.innerHTML = minutes + ':' + seconds;
-  lastTime.textContent = time.textContent;
-  }, 1000);
+//timer
+  let timer = document.querySelector(".clock");
+  let interval;
+  function startTimer(){
+      interval = setInterval(function(){
+          timer.innerHTML = minute + " mins "+ second + " secs ";
+          second++;
+          if(second == 60){
+              minute++;
+              second = 0;
+          }
+          if(minute == 60){
+              hour++;
+              minute = 0;
+          }
+      },1000);
   }
 
 
@@ -133,11 +139,30 @@ function checkMatch(clickedCard) {
 function countMoves() {
   moves++;
   counter.innerHTML = moves;
+  countScore();
+  }
+
+function countScore() {
+  const twoFlippedCards = 1;
+  if(moves === twoFlippedCards) {
+    addStars();
+  }
+}
+
+function addStars() {
+  const starList = document.querySelector('ul.stars li');
+  for(let stars = 1; stars < 9; stars++) {
+    if(stars.classList !== 'checked') {
+      starList.classList.add('checked');
+    }
+}
 }
 
 function endGame() {
-  console.log('end game');
+  
 }
+
+
 
   //check if class names match
 
