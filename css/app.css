@@ -96,6 +96,7 @@ h1 {
     padding: 0;
     display: inline-block;
     margin: 0 5px 0 0;
+    color: orange;
 }
 
 .score-panel .stars li {
@@ -103,66 +104,50 @@ h1 {
     display: inline-block;
 }
 
-.checked {
-  color: orange
-}
-
 .score-panel .restart {
     float: right;
     cursor: pointer;
 }
-.overlay {
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	background: rgba(0, 0, 0, 0.7);
-	transition: opacity 500ms;
-	visibility: hidden;
-	opacity: 0;
+
+.modal {
+  margin: auto;
+  width: 40%;
+  background: #ffffff;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  right: 50%;
+  padding: 40px;
 }
 
-.overlay:target {
-	visibility: visible;
-	opacity: 1;
+.modal-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+  border-bottom: 1px solid gray;
 }
 
-.popup {
-	margin: 70px auto;
-	padding: 20px;
-	background: #ffffff;
-	border-radius: 5px;
-	width: 85%;
-	position: relative;
-	transition: all 5s ease-in-out;
-	font-family: 'Gloria Hallelujah', cursive;
+.stats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid gray;
 }
 
-.popup h2 {
-	margin-top: 0;
-	color: #333;
-	font-family: Tahoma, Arial, sans-serif;
+.button {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
 }
 
-.popup .close {
-	position: absolute;
-	top: 20px;
-	right: 30px;
-	transition: all 200ms;
-	font-size: 30px;
-	font-weight: bold;
-	text-decoration: none;
-	color: #333;
+.replay {
+  width: 60px;
+  height: 30px;
 }
 
-.popup .close:hover {
-	color: #E5F720;
-}
-
-.popup .message1,
-.message2 {
-	max-height: 30%;
-	overflow: auto;
-	text-align: center;
+.hide {
+  display: none;
 }
