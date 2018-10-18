@@ -25,9 +25,9 @@ let minute = 0;
 let hour = 0;
 let timerId = setInterval(increaseTime, 1000);
 let timer = document.querySelector(".clock");
-const popup = document.querySelector('.modal');
+let popup = document.querySelector('.modal');
 let replayButton = document.querySelector('.replay');
-let restartSign = document.querySelector('.restart');
+let restartSign = document.getElementsByClassName('restart');
 
 
 /*
@@ -37,9 +37,9 @@ let restartSign = document.querySelector('.restart');
  *   - add each card's HTML to the page
  */
 
+
 function startGame() {
   generateCards();
-  
 }
 startGame();
 
@@ -60,26 +60,25 @@ for (card of cards) {
   newList.appendChild(iElement);
   //add li element inside ul element
   unorderedList.appendChild(newList);
-}
+  }
 }
 
 //Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+  var currentIndex = array.length, temporaryValue, randomIndex;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
 
-    return array;
+  return array;
 }
 
-
-//Add a click event listener to the cards
+//add a click event listener to the cards
 cardsContainer.addEventListener('click', function(event){
   const clickedCard = event.target;
   //initiate timer on click
@@ -94,10 +93,9 @@ cardsContainer.addEventListener('click', function(event){
       if (openedCards.length === 2) {
       //call a match function to check if cards match
         checkMatch();
+      }
     }
-    }
-  });
-
+});
 
 //open cards
 function flipOverCard(clickedCard) {
@@ -146,56 +144,72 @@ function updateScore(){
   if(moves === twoStars || moves === oneStar) {
     stars--;
     deleteStar();
-}
+  }
 }
 
+
 function deleteStar() {
-    const starsList = document.querySelectorAll('ul.stars li');
-    const allStars = 3;
-    const starsToDelete = allStars - stars;
-    for(let star = 0; star < starsToDelete; star++) {
-    //console.log('hey');
-      starsList[star].style.display = 'none';
-    }
-    }
+  const starsList = document.querySelectorAll('ul.stars li');
+  const allStars = 3;
+  const starsToDelete = allStars - stars;
+  for(let star = 0; star < starsToDelete; star++) {
+  //console.log('hey');
+    starsList[star].style.display = 'none';
+  }
+}
 
 //timer
 function increaseTime() {
   second++;
   if(second == 60){
-      minute++;
-      second = 0;
+    minute++;
+    second = 0;
   }
   if(minute == 60){
-      hour++;
-      minute = 0;
+    hour++;
+    minute = 0;
     }
     timer.innerHTML = minute + " mins "+ second + " secs ";
 }
-
-
+//end game
 function endGame() {
   displayMessage();
   playAgain();
 }
-
+//display messsage after end game
 function displayMessage() {
+  finalTime = timer.innerHTML;
   popup.classList.toggle('hide');
+  let starRating = document.querySelector('.stars').innerHTML;
+  document.getElementById('totalTime').innerHTML = finalTime;
+  document.getElementById('starRating').innerHTML = starRating;
+  document.getElementById('finalMoves').innerHTML = moves;
 }
 
+//reset game and start a new one
 function playAgain() {
-  replayButton.addEventListener('click', function(reset) {
+  replayButton.addEventListener('click', function(event) {
   popup.classList.toggle('hide');
   });
   resetEveryting();
 }
 
-function deleteCards() {
+function resetEveryting() {
+  resetCards();
+  shuffleCards();
+  resetMoves();
+  resetStars();
+  resetClock();
+  }
+//reset cards
+function resetCards() {
   for(card of cards) {
     cardsContainer.innerHTML = "";
+    openedCards = [];
+    matches = 0;
   }
 }
-
+//shuffle cards
 function shuffleCards() {
   cards = shuffle(cards);
   for (card of cards) {
@@ -215,44 +229,33 @@ function shuffleCards() {
     unorderedList.appendChild(newList);
   }
 }
-
-function resetEveryting() {
-  resetCards();
-  resetMoves();
-  resetStars();
-  deleteCards();
-  shuffleCards();
-  resetClock();
-  }
-
-
-function resetCards() {
-  openedCards = [];
-  matches = 0;
-}
-
+//reset moves
 function resetMoves() {
   moves = 0;
   counter.innerHTML = moves;
 }
-
+//reset stars
 function resetStars() {
   stars = 3;
   const starsList = document.querySelectorAll('ul.stars li');
   for(let star of starsList) {
     star.style.display = 'inline';
+  }
 }
-}
-
+//reset clock
 function resetClock() {
+  second = 0;
+  minute = 0;
+  hour = 0;
+  timer.innerHTML = '00:00';
   clearInterval(timerId);
-  let second = 0;
-  let minute = 0;
-  let hour = 0;
 }
 
-
-
+function resetButton() {
+  restartSign.addEventListener('click', function(event){
+    resetEveryting();
+  });
+}
 
 
 
