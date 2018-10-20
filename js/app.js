@@ -27,8 +27,6 @@ let timerId;
 let timer = document.querySelector('.clock');
 let popup = document.querySelector('.modal');
 let replayButton = document.querySelector('.replay');
-let restartSign = document.getElementsByClassName('restart');
-
 
 /*
  * Display the cards on the page
@@ -198,6 +196,8 @@ function playAgain() {
   resetEveryting();
 }
 
+document.querySelector('.restart').addEventListener('click', resetEveryting);
+
 function resetEveryting() {
   resetCards();
   shuffleCards();
@@ -205,6 +205,7 @@ function resetEveryting() {
   resetStars();
   resetClock();
   }
+
 //reset cards
 function resetCards() {
   for(card of cards) {
@@ -255,11 +256,7 @@ function resetClock() {
   clearInterval(timerId);
 }
 
-function resetButton() {
-  restartSign.addEventListener('click', function(event){
-    resetEveryting();
-  });
-}
+
 
 
 
