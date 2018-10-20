@@ -5,8 +5,8 @@ This is the second project of the Udacity's Nanodegree Front-End Developer.
 ## Table of Contents
 
 * [Challenge](#challenge)
-* [Contributing](#howtoplay)
-* [Built with](#buildwith)
+* [Contributing](#how-to-play)
+* [Built with](#built-with)
 * [Functionality](#functionality)
 * [Acknowledgement](#acknowledgment)
 
