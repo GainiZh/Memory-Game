@@ -4,8 +4,11 @@ This is the second project of the Udacity's Nanodegree Front-End Developer.
 
 ## Table of Contents
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+* [Challenge](#challenge)
+* [Contributing](#howtoplay)
+* [Built with](#buildwith)
+* [Functionality](#functionality)
+* [Acknowledgement](#acknowledgment)
 
 ## Challenge
 
@@ -18,7 +21,7 @@ The goal of the game is to find matched cards.
 - Try to remember the icons of the cards you already clicked
 - Match the cards with similar icons
 
-## Build with
+## Built with
 
 The game was build with the following languages:
 
