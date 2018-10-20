@@ -8,7 +8,7 @@ This is the second project of the Udacity's Nanodegree Front-End Developer.
 * [How to play](#how-to-play)
 * [Built with](#built-with)
 * [Functionality](#functionality)
-* [Acknowledgement](#acknowledgment)
+* [Acknowledgment](#acknowledgment)
 
 ## Challenge
 
@@ -39,6 +39,6 @@ The game was build with the following languages:
 - Replay button
 - Popup with statistics
 
-## Acknowledgement
+## Acknowledgment
 
 - Udacity community & mentors
