@@ -23,8 +23,8 @@ let stars = 3;
 let second = 0;
 let minute = 0;
 let hour = 0;
-let timerId = setInterval(increaseTime, 1000);
-let timer = document.querySelector(".clock");
+let timerId;
+let timer = document.querySelector('.clock');
 let popup = document.querySelector('.modal');
 let replayButton = document.querySelector('.replay');
 let restartSign = document.getElementsByClassName('restart');
@@ -160,6 +160,7 @@ function deleteStar() {
 
 //timer
 function increaseTime() {
+  clearInterval(timerId);
   second++;
   if(second == 60){
     minute++;
@@ -169,7 +170,10 @@ function increaseTime() {
     hour++;
     minute = 0;
     }
+    timerId = setInterval(increaseTime, 1000);
     timer.innerHTML = minute + " mins "+ second + " secs ";
+
+
 }
 //end game
 function endGame() {
