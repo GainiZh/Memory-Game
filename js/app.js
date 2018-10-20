@@ -1,7 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
- //Declare variables
+ //declare variables
 let cards = ['fa-diamond', 'fa-diamond',
               'fa-paper-plane-o', 'fa-paper-plane-o',
               'fa-anchor', 'fa-anchor',
@@ -10,7 +10,6 @@ let cards = ['fa-diamond', 'fa-diamond',
               'fa-leaf', 'fa-leaf',
               'fa-bicycle', 'fa-bicycle',
               'fa-bomb', 'fa-bomb'];
-
 
 const cardsContainer = document.querySelector('.deck');
 let openedCards = [];
@@ -35,13 +34,12 @@ let replayButton = document.querySelector('.replay');
  *   - add each card's HTML to the page
  */
 
-
 function startGame() {
   generateCards();
 }
 startGame();
 
-//Generate HTML cards
+//generate HTML cards
 function generateCards() {
 for (card of cards) {
   const unorderedList = document.querySelector('.deck');
@@ -61,7 +59,7 @@ for (card of cards) {
   }
 }
 
-//Shuffle function from http://stackoverflow.com/a/2450976
+//shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -135,6 +133,7 @@ function countMoves() {
   updateScore();
 }
 
+//update score
 function updateScore(){
   const twoStars = 5;
   const oneStar = 10;
@@ -145,7 +144,7 @@ function updateScore(){
   }
 }
 
-
+//delete star
 function deleteStar() {
   const starsList = document.querySelectorAll('ul.stars li');
   const allStars = 3;
@@ -170,14 +169,14 @@ function increaseTime() {
     }
     timerId = setInterval(increaseTime, 1000);
     timer.innerHTML = minute + " mins "+ second + " secs ";
-
-
 }
+
 //end game
 function endGame() {
   displayMessage();
   playAgain();
 }
+
 //display messsage after end game
 function displayMessage() {
   finalTime = timer.innerHTML;
@@ -196,8 +195,10 @@ function playAgain() {
   resetEveryting();
 }
 
+//restart after clicking on a restart sign
 document.querySelector('.restart').addEventListener('click', resetEveryting);
 
+//reset everything to start a new game
 function resetEveryting() {
   resetCards();
   shuffleCards();
@@ -214,6 +215,7 @@ function resetCards() {
     matches = 0;
   }
 }
+
 //shuffle cards
 function shuffleCards() {
   cards = shuffle(cards);
@@ -234,11 +236,13 @@ function shuffleCards() {
     unorderedList.appendChild(newList);
   }
 }
+
 //reset moves
 function resetMoves() {
   moves = 0;
   counter.innerHTML = moves;
 }
+
 //reset stars
 function resetStars() {
   stars = 3;
@@ -247,6 +251,7 @@ function resetStars() {
     star.style.display = 'inline';
   }
 }
+
 //reset clock
 function resetClock() {
   second = 0;
