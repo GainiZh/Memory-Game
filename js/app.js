@@ -97,6 +97,8 @@ cardsContainer.addEventListener('click', function(event){
 function flipOverCard(clickedCard) {
   clickedCard.classList.toggle('show');
   clickedCard.classList.toggle('open');
+  //call a function to add moves after each card was clicked
+    countMoves();
 }
 //function to push clickedCard into the openedCards
 function addToOpenCards(clickedCard) {
@@ -110,8 +112,6 @@ function checkMatch(clickedCard) {
       openedCards[0].classList.toggle('match');
       openedCards[1].classList.toggle('match');
       openedCards = [];
-      //call a function to add moves after two cards are toggled
-      countMoves();
       totalMatches++;
       if(totalMatches === allMatches) {
         endGame();
