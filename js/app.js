@@ -14,11 +14,12 @@ let cards = ['fa-diamond', 'fa-diamond',
 const cardsContainer = document.querySelector('.deck');
 let openedCards = [];
 let matches = [];
-let moves = 0;
+let moves = [];
 let counter = document.querySelector('.moves');
 let totalMatches = [];
 const allMatches = 8;
 let stars = 3;
+let timerOff = true;
 let second = 0;
 let minute = 0;
 let hour = 0;
@@ -34,10 +35,13 @@ let replayButton = document.querySelector('.replay');
  *   - add each card's HTML to the page
  */
 
+
 function startGame() {
-  generateCards();
+    generateCards();
+    game();
 }
 startGame();
+
 
 //generate HTML cards
 function generateCards() {
@@ -74,31 +78,62 @@ function shuffle(array) {
   return array;
 }
 
+function game() {
 //add a click event listener to the cards
-cardsContainer.addEventListener('click', function(event){
-  const clickedCard = event.target;
-  //initiate timer on click
-  increaseTime();
-  //check if class contains card class; enable only two cards to click; check if an array already has a clicked card
-  if(clickedCard.classList.contains('card') && openedCards.length < 2 && !openedCards.includes(clickedCard)) {
-    //display a card's symbol
-    flipOverCard(clickedCard);
-    //add clickedCard to openedCards
-    addToOpenCards(clickedCard);
-    //if two cards are clicked, check if they match
-      if (openedCards.length === 2) {
-      //call a match function to check if cards match
-        checkMatch();
-      }
+  cardsContainer.addEventListener('click', function(event){
+    const clickedCard = event.target;
+    //initiate timer
+    startClock();
+    //call a function to add moves after each card was clicked
+    countMoves();
+    //check if class contains card class; enable only two cards to click; check if an array already has a clicked card
+    if(clickedCard.classList.contains('card') && openedCards.length < 2 && !openedCards.includes(clickedCard)) {
+      //display a card's symbol
+      flipOverCard(clickedCard);
+      //add clickedCard to openedCards
+      addToOpenCards(clickedCard);
+      //if two cards are clicked, check if they match
+        if (openedCards.length === 2) {
+        //call a match function to check if cards match
+          checkMatch();
+        }
     }
-});
+  });
+}
+
+function startClock() {
+  if(timerOff) {
+    increaseTime();
+    timerOff = false;
+  }
+}
+
+//timer
+function increaseTime() {
+  clearInterval(timerId);
+  timerId = setInterval(() => {
+    second++;
+    if(second == 60){
+      minute++;
+      second = 0;
+    }
+    if(minute == 60){
+      hour++;
+      minute = 0;
+      }
+      showTime();
+    }, 1000);
+}
+
+//display time in the panel
+function showTime() {
+timer.innerHTML = minute + " mins "+ second + " secs ";
+}
 
 //open cards
 function flipOverCard(clickedCard) {
   clickedCard.classList.toggle('show');
   clickedCard.classList.toggle('open');
-  //call a function to add moves after each card was clicked
-    countMoves();
 }
 //function to push clickedCard into the openedCards
 function addToOpenCards(clickedCard) {
@@ -135,8 +170,8 @@ function countMoves() {
 
 //update score
 function updateScore(){
-  const twoStars = 5;
-  const oneStar = 10;
+  const twoStars = 8;
+  const oneStar = 16;
 
   if(moves === twoStars || moves === oneStar) {
     stars--;
@@ -153,22 +188,6 @@ function deleteStar() {
   //console.log('hey');
     starsList[star].style.display = 'none';
   }
-}
-
-//timer
-function increaseTime() {
-  clearInterval(timerId);
-  second++;
-  if(second == 60){
-    minute++;
-    second = 0;
-  }
-  if(minute == 60){
-    hour++;
-    minute = 0;
-    }
-    timerId = setInterval(increaseTime, 1000);
-    timer.innerHTML = minute + " mins "+ second + " secs ";
 }
 
 //end game
@@ -254,11 +273,12 @@ function resetStars() {
 
 //reset clock
 function resetClock() {
+  clearInterval(timerId);
   second = 0;
   minute = 0;
   hour = 0;
   timer.innerHTML = '00:00';
-  clearInterval(timerId);
+  timerOff = true;
 }
 
 
