@@ -78,6 +78,7 @@ function shuffle(array) {
   return array;
 }
 
+//main logic of the game
 function game() {
 //add a click event listener to the cards
   cardsContainer.addEventListener('click', function(event){
@@ -101,6 +102,7 @@ function game() {
   });
 }
 
+//start the clock if it is off
 function startClock() {
   if(timerOff) {
     increaseTime();
@@ -278,6 +280,7 @@ function resetClock() {
   minute = 0;
   hour = 0;
   timer.innerHTML = '00:00';
+  //set the timer to off so that it can start again when the game begins
   timerOff = true;
 }
 
