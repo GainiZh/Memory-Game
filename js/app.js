@@ -39,6 +39,7 @@ let replayButton = document.querySelector('.replay');
 function startGame() {
     generateCards();
     game();
+
 }
 startGame();
 
@@ -80,7 +81,7 @@ function shuffle(array) {
 
 //main logic of the game
 function game() {
-//add a click event listener to the cards
+//ADD A CLICK EVENT LISTENER
   cardsContainer.addEventListener('click', function(event){
     const clickedCard = event.target;
     //initiate timer
@@ -89,11 +90,11 @@ function game() {
     countMoves();
     //check if class contains card class; enable only two cards to click; check if an array already has a clicked card
     if(clickedCard.classList.contains('card') && openedCards.length < 2 && !openedCards.includes(clickedCard)) {
-      //display a card's symbol
+      //DISPLAY A CARD'S SYMBOL
       flipOverCard(clickedCard);
-      //add clickedCard to openedCards
+      //ADD IT TO OPENED CARDS
       addToOpenCards(clickedCard);
-      //if two cards are clicked, check if they match
+      //IF THE LIST HAS ANOTHER CARD, CHECK FOR A MATCH
         if (openedCards.length === 2) {
         //call a match function to check if cards match
           checkMatch();
@@ -102,7 +103,7 @@ function game() {
   });
 }
 
-//start the clock if it is off
+//ADD A CLOCK TIMER
 function startClock() {
   if(timerOff) {
     increaseTime();
@@ -110,7 +111,7 @@ function startClock() {
   }
 }
 
-//timer
+//increment time
 function increaseTime() {
   clearInterval(timerId);
   timerId = setInterval(() => {
@@ -162,9 +163,10 @@ function checkMatch(clickedCard) {
     }
 }
 
-//add moves after flipping over two cards
+//INCREMENT THE MOVE
 function countMoves() {
   moves++;
+  //DISPLAY IT ON THE PAGE
   counter.innerHTML = moves;
 
   updateScore();
@@ -198,7 +200,7 @@ function endGame() {
   playAgain();
 }
 
-//display messsage after end game
+//IF ALL CARDS ARE MATCHED, DISPLAY IT ON THE PAGE
 function displayMessage() {
   finalTime = timer.innerHTML;
   popup.classList.toggle('hide');
@@ -208,7 +210,7 @@ function displayMessage() {
   document.getElementById('finalMoves').innerHTML = moves;
 }
 
-//reset game and start a new one
+//ADD PLAY AGAIN BUTTON
 function playAgain() {
   replayButton.addEventListener('click', function(event) {
   popup.classList.toggle('hide');
@@ -216,7 +218,7 @@ function playAgain() {
   resetEveryting();
 }
 
-//restart after clicking on a restart sign
+//MAKE A RESTART SIGN WORK WHEN CLICKING ON IT
 document.querySelector('.restart').addEventListener('click', resetEveryting);
 
 //reset everything to start a new game
