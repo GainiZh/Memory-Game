@@ -14,9 +14,9 @@ let cards = ['fa-diamond', 'fa-diamond',
 const cardsContainer = document.querySelector('.deck');
 let openedCards = [];
 let matches = [];
-let moves = [];
+let moves = 0;
 let counter = document.querySelector('.moves');
-let totalMatches = [];
+let totalMatches = 0;
 const allMatches = 8;
 let stars = 3;
 let timerOff = true;
@@ -86,8 +86,6 @@ function game() {
     const clickedCard = event.target;
     //initiate timer
     startClock();
-    //call a function to add moves after each card was clicked
-    countMoves();
     //check if class contains card class; enable only two cards to click; check if an array already has a clicked card
     if(clickedCard.classList.contains('card') && openedCards.length < 2 && !openedCards.includes(clickedCard)) {
       //DISPLAY A CARD'S SYMBOL
@@ -96,8 +94,8 @@ function game() {
       addToOpenCards(clickedCard);
       //IF THE LIST HAS ANOTHER CARD, CHECK FOR A MATCH
         if (openedCards.length === 2) {
-        //call a match function to check if cards match
-          checkMatch();
+        //call a function to check if cards match
+          checkCards();
         }
     }
   });
@@ -131,6 +129,15 @@ function increaseTime() {
 //display time in the panel
 function showTime() {
 timer.innerHTML = minute + " mins "+ second + " secs ";
+}
+
+//check two cards if the match and count moves
+function checkCards() {
+  const twoOpenCards = 2;
+  if (openedCards.length === twoOpenCards) {
+    countMoves();
+    checkMatch();
+  }
 }
 
 //open cards
@@ -174,8 +181,8 @@ function countMoves() {
 
 //update score
 function updateScore(){
-  const twoStars = 8;
-  const oneStar = 16;
+  const twoStars = 4;
+  const oneStar = 8;
 
   if(moves === twoStars || moves === oneStar) {
     stars--;
@@ -208,26 +215,28 @@ function displayMessage() {
   document.getElementById('totalTime').innerHTML = finalTime;
   document.getElementById('starRating').innerHTML = starRating;
   document.getElementById('finalMoves').innerHTML = moves;
+  console.log('it works')
 }
 
 //ADD PLAY AGAIN BUTTON
 function playAgain() {
   replayButton.addEventListener('click', function(event) {
-  popup.classList.toggle('hide');
+  toggleModal();
   });
   resetEveryting();
 }
 
-//MAKE A RESTART SIGN WORK WHEN CLICKING ON IT
-document.querySelector('.restart').addEventListener('click', resetEveryting);
+function toggleModal() {
+  popup.classList.toggle('hide');
+}
 
 //reset everything to start a new game
 function resetEveryting() {
-  resetCards();
-  shuffleCards();
   resetMoves();
   resetStars();
   resetClock();
+  resetCards();
+  shuffleCards();
   }
 
 //reset cards
@@ -235,7 +244,7 @@ function resetCards() {
   for(card of cards) {
     cardsContainer.innerHTML = "";
     openedCards = [];
-    matches = 0;
+    totalMatches = 0;
   }
 }
 
@@ -286,8 +295,8 @@ function resetClock() {
   timerOff = true;
 }
 
-
-
+//MAKE A RESTART SIGN WORK WHEN CLICKING ON IT
+document.querySelector('.restart').addEventListener('click', resetEveryting);
 
 
 
