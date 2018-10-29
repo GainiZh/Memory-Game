@@ -210,25 +210,24 @@ function endGame() {
 //IF ALL CARDS ARE MATCHED, DISPLAY IT ON THE PAGE
 function displayMessage() {
   finalTime = timer.innerHTML;
+  //modal appears
   popup.classList.toggle('hide');
   let starRating = document.querySelector('.stars').innerHTML;
   document.getElementById('totalTime').innerHTML = finalTime;
   document.getElementById('starRating').innerHTML = starRating;
   document.getElementById('finalMoves').innerHTML = moves;
-  console.log('it works')
+  //console.log('it works');
 }
 
 //ADD PLAY AGAIN BUTTON
 function playAgain() {
   replayButton.addEventListener('click', function(event) {
-  toggleModal();
+  //modal disappears
+  popup.classList.toggle('hide');
   });
   resetEveryting();
 }
 
-function toggleModal() {
-  popup.classList.toggle('hide');
-}
 
 //reset everything to start a new game
 function resetEveryting() {
