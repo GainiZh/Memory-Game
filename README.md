@@ -23,11 +23,13 @@ The goal of the game is to find matched cards.
 
 ## Built with
 
-The game was build with the following languages:
+The game was build with the following languages and resources:
 
 - HTML
 - CSS
 - JavaScript
+- Bootstrap
+- Google Fonts
 
 ## Functionality
 
