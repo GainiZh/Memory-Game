@@ -216,18 +216,19 @@ function displayMessage() {
   document.getElementById('totalTime').innerHTML = finalTime;
   document.getElementById('starRating').innerHTML = starRating;
   document.getElementById('finalMoves').innerHTML = moves;
-  //console.log('it works');
+  //console.log('it works')
 }
 
 //ADD PLAY AGAIN BUTTON
 function playAgain() {
-  replayButton.addEventListener('click', function(event) {
-  //modal disappears
-  popup.classList.toggle('hide');
-  });
   resetEveryting();
 }
 
+//function to replay when clicked on a replay button
+replayButton.addEventListener('click', function(event) {
+//modal disappears
+popup.classList.toggle('hide');
+});
 
 //reset everything to start a new game
 function resetEveryting() {
