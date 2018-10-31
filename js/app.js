@@ -37,8 +37,8 @@ let replayButton = document.querySelector('.replay');
 
 
 function startGame() {
-    generateCards();
-    game();
+  generateCards();
+  game();
 
 }
 startGame();
@@ -128,7 +128,7 @@ function increaseTime() {
 
 //display time in the panel
 function showTime() {
-timer.innerHTML = minute + " mins "+ second + " secs ";
+  timer.innerHTML = minute + " mins "+ second + " secs ";
 }
 
 //check two cards if the match and count moves
@@ -226,8 +226,8 @@ function playAgain() {
 
 //function to replay when clicked on a replay button
 replayButton.addEventListener('click', function(event) {
-//modal disappears
-popup.classList.toggle('hide');
+  //modal disappears
+  popup.classList.toggle('hide');
 });
 
 //reset everything to start a new game
